@@ -42,7 +42,7 @@ services:
     ports:
       - 2379
     volumes:
-      - ${PHP_WORK_SPACE}/etcd1:/etcd_data
+      - ${DARA_SPACE}/etcd1:/etcd_data
     networks:
       uto:
         aliases:
@@ -65,9 +65,10 @@ services:
     ports:
       - 2379
     volumes:
-      - ${PHP_WORK_SPACE}/etcd2:/etcd_data
+      - ${DARA_SPACE}/etcd2:/etcd_data
   etcd-3:
     container_name: etcd3
+    hostname: etcd3
     image: quay.io/coreos/etcd:v3.3
     entrypoint: /usr/local/bin/etcd
     command:
@@ -84,10 +85,11 @@ services:
     ports:
       - "2379:2379"
     volumes:
-      - ${PHP_WORK_SPACE}/etcd3:/etcd_data
+      - ${DARA_SPACE}/etcd3:/etcd_data
 
   nsqadmin:
     image: nsqio/nsq
+    hostname: nsqadmin
     command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
     depends_on:
       - nsqlookupd
@@ -97,5 +99,5 @@ services:
       uto:
         aliases:
           - nsqadmin
-  networks:
-    uto:
+networks:
+  uto:
