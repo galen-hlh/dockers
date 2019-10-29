@@ -1,0 +1,15 @@
+mysql5.7:
+  container_name: mysql
+  hostname: mysql
+  image: mysql:5.7
+  restart: always
+  privileged: true
+  environment:
+    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+    MYSQL_USER: ${MYSQL_USER}
+    MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+#    MYSQL_DATABASE: "coinphd"
+  volumes:
+    - ${MYSQL_DATA_DIR}:/var/lib/mysql
+  ports:
+    - "3306:3306"

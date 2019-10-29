@@ -1,0 +1,12 @@
+redis4.0:
+    container_name: redis
+    image: redis:4.0.1
+    ports:
+      - "6379:6379"
+    volumes:
+      - ${REDIS_DATA_MODULES}:/redis/modules:z
+      - ${REDIS_DATA_DIR}:/redis/data:z
+    hostname: redis
+    privileged: true
+    restart: always
+    command: ['--port', '6379', '--protected-mode', 'no','--requirepass', '${REDIS_PASSWORD}']

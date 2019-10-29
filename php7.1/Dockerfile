@@ -1,5 +1,6 @@
 FROM php:7.1-fpm
-MAINTAINER helinhan@styd.cn
+
+MAINTAINER helinhan
 
 RUN mkdir -p /var/www/tmp
 RUN mkdir -p /var/www/tmp/data
