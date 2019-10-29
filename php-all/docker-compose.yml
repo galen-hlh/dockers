@@ -8,7 +8,8 @@ services:
     restart: always
     volumes:
       - ./nginx-php56/web.conf:/etc/nginx/conf.d/web.conf
-      - "${PHP_WORK_SPACE}:/data/styd"
+      - "${WORK_SPACE1}:/data/styd"
+      - "${WORK_SPACE2}:/data/helinhan"
     ports:
       - 8080:80
     networks:
@@ -22,7 +23,8 @@ services:
     volumes:
       - ./php71.conf/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./nginx-php71/web.conf:/etc/nginx/conf.d/web.conf
-      - "${PHP_WORK_SPACE}:/data/styd"
+      - "${WORK_SPACE1}:/data/styd"
+      - "${WORK_SPACE2}:/data/helinhan"
     ports:
       - 8081:80
     networks:
@@ -31,12 +33,13 @@ services:
           - workspace-php71
 
   php72:
-    image: helinhan/solve:latest
+    image: helinhan/php7.2:latest
     restart: always
     volumes:
       - ./php72.conf/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./nginx-php72/web.conf:/etc/nginx/conf.d/web.conf
-      - "${PHP_WORK_SPACE}:/data/styd"
+      - "${WORK_SPACE1}:/data/styd"
+      - "${WORK_SPACE2}:/data/helinhan"
     ports:
       - 8082:80
     networks:
