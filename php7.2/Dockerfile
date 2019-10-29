@@ -55,8 +55,8 @@ RUN chmod +x /usr/local/bin/composer && composer config -g repo.packagist compos
 RUN pecl install /var/www/tmp/grpc-1.17.0.tgz \
 && pecl install /var/www/tmp/protobuf-3.7.0.tgz \
 && pecl install /var/www/tmp/redis-4.2.0.tgz \
-&& pecl install /var/www/tmp/swoole-1.10.2.tgz \
 && docker-php-ext-enable protobuf \
+&& docker-php-ext-enable redis \
 
 RUN rm -f /home/redis.tgz
 
