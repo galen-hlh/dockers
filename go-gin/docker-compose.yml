@@ -1,0 +1,10 @@
+go:
+  image: helinhan/go1.13
+  restart: always
+  ports:
+    - "8181:8181"
+  environment:
+    GOPATH: /Users/galen/styd/gopath
+  volumes:
+    - /Users/galen/styd:/data/styd
+    - /Users/galen/helinhan:/data/helinhan
