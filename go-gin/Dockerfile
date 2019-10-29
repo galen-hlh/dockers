@@ -20,3 +20,7 @@ net-tools
 # 设置ENV
 ENV GOROOT=/usr/local/go
 ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
+
+CMD ["/usr/bin/supervisord", "-n"]
+
+WORKDIR /
