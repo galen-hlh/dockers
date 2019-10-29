@@ -44,17 +44,19 @@ RUN apt-get update && apt-get install -y \
 ADD ./run.sh /run.sh
 RUN chmod +x /run.sh
 
-# 安装 PECL 拓展，这里我们安装的是Redis
-COPY ./pkg/redis-4.1.1.tgz /home/redis.tgz
-RUN pecl install /home/redis.tgz && echo "extension=redis.so" > /usr/local/etc/php/conf.d/redis.ini
+# 拷贝扩展
+COPY ./software/* /var/www/tmp/
 
 # 安装 Composer
-COPY ./pkg/composer.phar /usr/local/bin/composer
+RUN mv /var/www/tmp/composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
-# 安装protobuf
-RUN pecl install /var/www/tmp/grpc-1.17.0.tgz && pecl install /var/www/tmp/protobuf-3.7.0.tgz && docker-php-ext-enable protobuf
-RUN mkdir -p /data/styd/gopath/ && mkdir -p /data/logs/smart_gateway
+# php扩展
+RUN pecl install /var/www/tmp/grpc-1.17.0.tgz \
+&& pecl install /var/www/tmp/protobuf-3.7.0.tgz \
+&& pecl install /var/www/tmp/redis-4.2.0.tgz \
+&& pecl install /var/www/tmp/swoole-1.10.2.tgz \
+&& docker-php-ext-enable protobuf \
 
 RUN rm -f /home/redis.tgz
 
