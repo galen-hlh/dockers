@@ -51,16 +51,18 @@ COPY ./software/* /var/www/tmp/
 RUN mv /var/www/tmp/composer.phar /usr/local/bin/composer
 RUN chmod +x /usr/local/bin/composer && composer config -g repo.packagist composer https://packagist.phpcomposer.com
 
-# php扩展
+# grpc protobuf
 RUN pecl install /var/www/tmp/grpc-1.17.0.tgz \
 && pecl install /var/www/tmp/protobuf-3.7.0.tgz \
-&& pecl install /var/www/tmp/redis-4.2.0.tgz \
 && docker-php-ext-enable protobuf \
-&& docker-php-ext-enable redis \
 
-RUN rm -f /home/redis.tgz
+# redis
+RUN pecl install /var/www/tmp/redis-4.2.0.tgz \
+&& docker-php-ext-enable redis
 
 ADD supervisord.conf /etc/supervisord.conf
+
+RUN rm -rf /var/www/tmp/*
 
 CMD ["/usr/bin/supervisord", "-n"]
 
