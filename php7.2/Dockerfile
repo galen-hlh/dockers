@@ -40,42 +40,6 @@ RUN apt-get update && apt-get install -y \
         && docker-php-ext-enable mcrypt \
         && aptitude -y install gcc make zlib1g-dev libffi-dev libssl-dev
 
-# 安装python3.6p
-RUN cd /home && wget https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tgz
-RUN cd /home && tar -xvf Python-3.7.0.tgz && chmod -R +x Python-3.7.0
-RUN cd /home/Python-3.7.0/ && ./configure && make && make install
-
-# 设置python的环境变量
-#RUN rm -rf /usr/bin/python && ln -s /usr/local/bin/python3.6 /usr/bin/python
-#RUN echo "alias python='/usr/local/bin/python3.7'" > ~/.bashrc
-RUN ln -s /usr/local/bin/python3.7 /usr/local/bin/python
-RUN ln -s /usr/local/bin/pip3 /usr/local/bin/pip
-
-#安装python的包
-ADD ./requirements.txt ./requirements.txt
-RUN pip install -r requirements.txt
-
-# 安装chrome
-RUN apt-get -y install libxss1 libappindicator1 libindicator7
-RUN wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-RUN dpkg -i google-chrome-stable_current_amd64.deb; exit 0
-RUN apt-get -y -f install
-RUN dpkg -i google-chrome-stable_current_amd64.deb
-
-# 安装chromedriver
-RUN wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
-RUN unzip chromedriver_linux64.zip && chmod +x chromedriver
-RUN mv -f chromedriver /usr/local/share/chromedriver \
-&& ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver \
-&& ln -s /usr/local/share/chromedriver /usr/bin/chromedriver
-
-# 安装golang
-RUN wget https://dl.google.com/go/go1.12.6.linux-amd64.tar.gz && tar -xvf go1.12.6.linux-amd64.tar.gz && mv go /usr/local \
-&& rm -rf go1.12.6.linux-amd64.tar.gz && rm -rf go1.12.6.linux-amd64
-ENV GOROOT=/usr/local/go
-ENV GOPATH=/data/styd/gopath
-ENV PATH=$GOPATH/bin:$GOROOT/bin:$PATH
-
 # 添加自启文件
 ADD ./run.sh /run.sh
 RUN chmod +x /run.sh
