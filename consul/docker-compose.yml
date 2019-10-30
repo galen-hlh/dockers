@@ -38,11 +38,11 @@ services:
             - "53"
         command: -server -data-dir /tmp/consul -join consulserver
 
-    registrator:
-        image: gliderlabs/registrator:master
-        hostname: registrator
-        depends_on:
-            - "consulserver"
-        volumes:
-            - "/var/run/docker.sock:/tmp/docker.sock"
-        command: -internal consul://consulserver:8500
+#    registrator:
+#        image: gliderlabs/registrator:master
+#        hostname: registrator
+#        depends_on:
+#            - "consulserver"
+#        volumes:
+#            - "/var/run/docker.sock:/tmp/docker.sock"
+#        command: -internal consul://consulserver:8500
