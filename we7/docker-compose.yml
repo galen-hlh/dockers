@@ -11,7 +11,7 @@ services:
       - ./nginx-php56/web.conf:/etc/nginx/conf.d/web.conf
       - "${WORK_SPACE1}:/data/helinhan"
     ports:
-      - 8080:80
+      - 80:80
     networks:
       uto:
         aliases:
