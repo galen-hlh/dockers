@@ -9,8 +9,7 @@ services:
     volumes:
       - ./php56.conf/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./nginx-php56/web.conf:/etc/nginx/conf.d/web.conf
-      - "${WORK_SPACE1}:/data/styd"
-      - "${WORK_SPACE2}:/data/helinhan"
+      - "${WORK_SPACE1}:/data/helinhan"
     ports:
       - 8080:80
     networks:
