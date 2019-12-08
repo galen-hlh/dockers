@@ -7,7 +7,11 @@ ENV TZ=Asia/Shanghai
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # 更新安装依赖包和PHP核心拓展
-RUN apt-get update && apt-get install -y \
+RUN set -xe \
+    && buildDeps=" \
+       $PHP_EXTRA_BUILD_DEPS \
+       " \
+    && apt-get update && apt-get install -y \
         aptitude \
         supervisor \
         wget \
@@ -19,7 +23,7 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-        nginx=1.14.2 \
+        nginx \
         procps \
         libxml2-dev \
         libmcrypt-dev \
