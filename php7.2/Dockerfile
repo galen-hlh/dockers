@@ -35,7 +35,6 @@ RUN set -xe \
     && docker-php-ext-enable protobuf \
     && docker-php-ext-enable swoole \
     && docker-php-ext-enable redis \
-    && docker-php-ext-enable xdebug \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install bcmath \
     && curl -sS https://getcomposer.org/installer | php \
