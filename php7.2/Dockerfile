@@ -19,7 +19,7 @@ RUN apt-get update && apt-get install -y \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-        nginx \
+        nginx=1.14.2 \
         procps \
         libxml2-dev \
         libmcrypt-dev \
