@@ -28,7 +28,7 @@ RUN set -xe \
     && pecl install /var/www/tmp/grpc-1.17.0.tgz \
     && pecl install /var/www/tmp/protobuf-3.7.0.tgz \
     && pecl install /var/www/tmp/redis-4.2.0.tgz \
-    && pecl install -o swoole=4.4.12
+    && pecl install -o swoole-4.4.12 \
     && pecl install xdebug \
 # swoole和grpc扩展有冲突，会导致worker阻塞, 必须先在配置文件启用swoole扩展, 代码中在onWorkerStart回调中dl动态加载grpc扩展
 #    && docker-php-ext-enable grpc \
