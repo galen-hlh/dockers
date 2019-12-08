@@ -23,7 +23,6 @@ RUN set -xe \
         libfreetype6-dev \
         libjpeg62-turbo-dev \
         libpng-dev \
-        nginx \
         procps \
         libxml2-dev \
         libmcrypt-dev \
@@ -43,6 +42,8 @@ RUN set -xe \
         && docker-php-ext-enable opcache \
         && docker-php-ext-enable mcrypt \
         && aptitude -y install gcc make zlib1g-dev libffi-dev libssl-dev
+
+RUN apt-get install -y nginx=1.14.0
 
 # 添加自启文件
 ADD ./run.sh /run.sh
