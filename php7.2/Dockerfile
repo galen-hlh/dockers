@@ -43,7 +43,6 @@ RUN set -xe \
 
 RUN docker-php-ext-install mysqli
 RUN docker-php-ext-install zip
-RUN docker-php-ext-install unzip
 
 ADD supervisord.conf /etc/supervisord.conf
 CMD ["/usr/bin/supervisord", "-n"]
