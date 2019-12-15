@@ -24,6 +24,8 @@ RUN set -xe \
 	&& apt-get install -y iputils-ping \
 	&& apt-get install -y automake \
 	&& apt-get install -y libtool \
+	&& apt-get install -y zip \
+	&& apt-get install -y unzip \
     && docker-php-source extract \
     && pecl install /var/www/tmp/grpc-1.17.0.tgz \
     && pecl install /var/www/tmp/protobuf-3.7.0.tgz \
@@ -37,12 +39,11 @@ RUN set -xe \
     && docker-php-ext-enable redis \
     && docker-php-ext-install pdo_mysql \
     && docker-php-ext-install bcmath \
+    && docker-php-ext-install mysqli \
+    && docker-php-ext-install zip \
     && curl -sS https://getcomposer.org/installer | php \
     && mv composer.phar /usr/local/bin/composer \
     && echo 'alias ll="ls -al"' > /root/.bashrc
-
-RUN docker-php-ext-install mysqli
-RUN docker-php-ext-install zip
 
 ADD supervisord.conf /etc/supervisord.conf
 CMD ["/usr/bin/supervisord", "-n"]
