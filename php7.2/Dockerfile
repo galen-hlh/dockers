@@ -41,6 +41,9 @@ RUN set -xe \
     && mv composer.phar /usr/local/bin/composer \
     && echo 'alias ll="ls -al"' > /root/.bashrc
 
+RUN docker-php-ext-install mysqli && docker-php-ext-enable mysqli
+RUN docker-php-ext-install zip && docker-php-ext-enable zip
+
 ADD supervisord.conf /etc/supervisord.conf
 CMD ["/usr/bin/supervisord", "-n"]
 WORKDIR /
