@@ -53,12 +53,15 @@ services:
     ports:
       - "6379:6379"
     volumes:
-      - ${REDIS_DATA_MODULES}:/redis/modules:z
       - ${REDIS_DATA_DIR}:/redis/data:z
     hostname: redis
     privileged: true
     restart: always
-    command: ['--port', '6379', '--protected-mode', 'no','--requirepass', '${REDIS_PASSWORD}']
+    command: ['--appendonly', 'yes', '--port', '6379', '--protected-mode', 'no','--requirepass', '${REDIS_PASSWORD}']
+    networks:
+      uto:
+        aliases:
+          - redis
 
   mysql5.7:
     image: mysql:5.7
@@ -72,6 +75,10 @@ services:
       - ${MYSQL_DATA_DIR}:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      uto:
+        aliases:
+          - mysql
 
 networks:
   uto:
