@@ -1,0 +1,41 @@
+version: '3.0'
+
+# 容器时区
+services:
+  nsqlookupd:
+    image: nsqio/nsq
+    command: /nsqlookupd --http-address 0.0.0.0:4161
+    ports:
+      - "4160:4160"
+      - "4161:4161"
+    networks:
+      uto:
+        aliases:
+          - nsqlookupd
+  nsqd:
+    image: nsqio/nsq
+    command: /nsqd --lookupd-tcp-address=nsqlookupd:4160 -tcp-address=0.0.0.0:4151 -http-address=0.0.0.0:4155
+    depends_on:
+      - nsqlookupd
+    ports:
+      - "4155:4155"
+      - "4151:4151"
+    networks:
+      uto:
+        aliases:
+          - nsqd
+
+  nsqadmin:
+    image: nsqio/nsq
+    hostname: nsqadmin
+    command: /nsqadmin --lookupd-http-address=nsqlookupd:4161
+    depends_on:
+      - nsqlookupd
+    ports:
+      - "4171:4171"
+    networks:
+      uto:
+        aliases:
+          - nsqadmin
+networks:
+  uto:
