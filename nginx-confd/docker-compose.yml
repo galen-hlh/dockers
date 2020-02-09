@@ -1,0 +1,14 @@
+version: '3.0'
+
+services:
+  nginx:
+    image: helinhan/uto-nginx:latest
+    volumes:
+      - "./grpc-nginx:/etc/nginx/conf.d"
+      - "./grpc-nginx:/etc/confd"
+      - "./start.sh:/confd/start.sh"
+    command: /bin/sh -C "/confd/start.sh"
+    restart: always
+    ports:
+      - 80:80
+      - 443:443

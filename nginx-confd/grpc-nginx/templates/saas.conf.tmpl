@@ -1,0 +1,12 @@
+{{if lsdir "/micro/registry"}}
+upstream app {
+#    keepalive_timeout 100s;
+#    keepalive_requests 1000;
+    {{range getvs "/micro/registry/helper/*"}}
+    {{$data := json .}}
+    {{range $k, $v := $data.nodes}}
+    server {{$v.address}};
+    {{end}}
+    {{end}}
+}
+{{end}}

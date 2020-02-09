@@ -1,0 +1,8 @@
+[template]
+src = "saas.conf.tmpl"
+dest = "/etc/nginx/conf.d/saas.conf"
+keys = [
+    "/micro/registry/helper/",
+]
+
+reload_cmd = "nginx -s reload"
