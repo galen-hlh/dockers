@@ -11,7 +11,8 @@ services:
       - ./nginx-php72/web.conf:/etc/nginx/conf.d/web.conf
       - "${WORK_SPACE}:/data"
     ports:
-      - 8082:80
+      - 80:80
+      - 443:443
     networks:
       uto:
         aliases:
