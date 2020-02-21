@@ -49,8 +49,8 @@ RUN set -xe \
 
 RUN apt-get install -y wget
 RUN cd /tmp && wget https://pecl.php.net/get/swoole-4.4.12.tgz && \
-    tar zxvf swoole-4.2.12.tgz && \
-    cd swoole-4.2.12  && \
+    tar zxvf swoole-4.4.12.tgz && \
+    cd swoole-4.4.12  && \
     phpize  && \
     ./configure  --enable-openssl && \
     make && make install
