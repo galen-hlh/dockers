@@ -3,33 +3,36 @@ version: '3.0'
 # 容器时区
 services:
 
-  php56:
+  php:
     image: helinhan/php5.6:latest
     restart: always
     volumes:
       - ./php56.conf/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ./nginx-php56/web.conf:/etc/nginx/conf.d/web.conf
-      - "${WORK_SPACE1}:/data/helinhan"
+      - "${WORK_SPACE}:/data/helinhan"
     ports:
       - 80:80
     networks:
       uto:
         aliases:
-          - workspace-php56
+          - workspace
 
-  redis4.0:
+  redis:
     image: redis:4.0.1
     ports:
       - "6379:6379"
     volumes:
-      - ${REDIS_DATA_MODULES}:/redis/modules:z
       - ${REDIS_DATA_DIR}:/redis/data:z
     hostname: redis
     privileged: true
     restart: always
     command: ['--port', '6379', '--protected-mode', 'no','--requirepass', '${REDIS_PASSWORD}']
+    networks:
+      uto:
+        aliases:
+          - redis
 
-  mysql5.7:
+  mysql:
     image: mysql:5.7
     restart: always
     privileged: true
@@ -41,6 +44,10 @@ services:
       - ${MYSQL_DATA_DIR}:/var/lib/mysql
     ports:
       - "3306:3306"
+    networks:
+      uto:
+        aliases:
+          - mysql
 
 networks:
   uto:
