@@ -1,5 +1,5 @@
 {{if lsdir "/micro/registry"}}
-upstream app {
+upstream grpc_service {
 #    keepalive_timeout 100s;
 #    keepalive_requests 1000;
     {{range getvs "/micro/registry/helper/*"}}
@@ -8,5 +8,17 @@ upstream app {
     server {{$v.address}};
     {{end}}
     {{end}}
+}
+server {
+    listen 80 http2;
+    client_body_timeout 360s;
+    grpc_read_timeout 300s;
+    grpc_send_timeout 10s;
+    access_log /data/logs/nginx/grpc_service.access.log;
+    error_log /data/logs/nginx/grpc_service.error.log;
+
+    location / {
+        grpc_pass grpc://grpc_service;
+    }
 }
 {{end}}
