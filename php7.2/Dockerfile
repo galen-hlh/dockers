@@ -47,6 +47,7 @@ RUN set -xe \
     && mv composer.phar /usr/local/bin/composer \
     && echo 'alias ll="ls -al"' > /root/.bashrc
 
+RUN apt-get install -y wget
 RUN cd /tmp && wget https://pecl.php.net/get/swoole-4.2.12.tgz && \
     tar zxvf swoole-4.2.12.tgz && \
     cd swoole-4.2.12  && \
