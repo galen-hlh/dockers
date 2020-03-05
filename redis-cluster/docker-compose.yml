@@ -1,0 +1,17 @@
+version: '2'
+services:
+  redis-cluster:
+    environment:
+      IP: ${REDIS_CLUSTER_IP}
+      SENTINEL: ${REDIS_USE_SENTINEL}
+      STANDALONE: ${REDIS_USE_STANDALONE}
+      MASTERS: ${MASTERS}
+      SLAVES_PER_MASTER: ${SLAVES_PER_MASTER}
+#    build:
+#      context: .
+#      args:
+#        redis_version: '5.0.7'
+    image: helinhan/redis-cluster:5.0.7
+    ports:
+      - '7000-7050:7000-7050'
+      - '5000-5010:5000-5010'
