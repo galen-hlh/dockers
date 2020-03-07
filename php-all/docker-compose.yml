@@ -38,6 +38,8 @@ services:
     restart: always
     volumes:
       - ./nginx-php72/web.conf:/etc/nginx/conf.d/web.conf
+      - ${WORK_SPACE1}:/data/dly
+      - ${WORK_SPACE2}:/data/helinhan
     ports:
       - 80:80
     networks:
@@ -50,8 +52,8 @@ services:
     restart: always
     volumes:
       - ./php72.conf/php.ini:/usr/local/etc/php/conf.d/php.ini
-      - "${WORK_SPACE1}:/data/styd"
-      - "${WORK_SPACE2}:/data/helinhan"
+      - ${WORK_SPACE1}:/data/dly
+      - ${WORK_SPACE2}:/data/helinhan
     ports:
       - 9501:9501
     networks:
@@ -74,6 +76,7 @@ services:
         aliases:
           - redis
 
+
   mysql5.7:
     image: mysql:5.7
     restart: always
@@ -90,6 +93,25 @@ services:
       uto:
         aliases:
           - mysql
+
+  rabbitmq:
+    image: rabbitmq:management
+    container_name: rabbitmq
+    environment:
+      - APP_ENV=dev
+      - TIMEZONE=Asia/Shanghai
+      - RABBITMQ_DEFAULT_USER=${RABBITMQ_DEFAULT_USER}
+      - RABBITMQ_DEFAULT_PASS=${RABBITMQ_DEFAULT_PASS}
+    restart: always
+    volumes:
+      - ${RABBITMQ_DATA_DIR}:/var/lib/rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+    networks:
+      uto:
+        aliases:
+          - rabbitmq
 
 networks:
   uto:
