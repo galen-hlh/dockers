@@ -22,7 +22,6 @@ libxslt-dev \
 openssl \
 libssl-dev \
 libpq-dev \
-nginx \
 procps \
 vim \
 curl \
@@ -32,6 +31,7 @@ net-tools \
 && docker-php-ext-install -j$(nproc) iconv \
 && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
 && docker-php-ext-install -j$(nproc) gd  \
+mysql \
 bcmath \
 mysqli \
 pdo_mysql \
@@ -81,6 +81,7 @@ RUN touch /usr/local/etc/php/conf.d/docker-php-ext-timezone.ini \
 
 RUN apt-get update && apt-get install -y git
 
-ADD supervisord.conf /etc/supervisord.conf
-CMD ["/usr/bin/supervisord", "-n"]
+#ADD supervisord.conf /etc/supervisord.conf
+#CMD ["/usr/bin/supervisord", "-n"]
+CMD ["/usr/local/sbin/php-fpm", "-D"]
 WORKDIR /
