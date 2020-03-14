@@ -81,7 +81,7 @@ RUN touch /usr/local/etc/php/conf.d/docker-php-ext-timezone.ini \
 
 RUN apt-get update && apt-get install -y git
 
-#ADD supervisord.conf /etc/supervisord.conf
-#CMD ["/usr/bin/supervisord", "-n"]
-CMD ["/usr/local/sbin/php-fpm", "-D"]
+ADD supervisord.conf /etc/supervisord.conf
+CMD ["/usr/bin/supervisord", "-n"]
+#CMD ["/usr/local/sbin/php-fpm", "-D"]
 WORKDIR /
