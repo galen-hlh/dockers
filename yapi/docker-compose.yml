@@ -15,9 +15,11 @@ services:
     restart: always
     ports:
       - 3000:3000
+    privileged: true
     volumes:
       - /Users/galen/data/yapi/log:/home/vendors/log # log dir
-#      - ./config.json:/home/config.json
+      - ./config.json:/home/config-tpl.json
+      - ./entrypoint.sh:/bin/entrypoint.sh
     depends_on:
       - mongo
     entrypoint: "bash /wait-for-it.sh mongo:27017 -- entrypoint.sh"
@@ -30,8 +32,8 @@ services:
     image: mongo:4.2
     container_name: mongo
     restart: always
-    ports:
-      - 27017:27017
+    expose:
+      - 27017
     volumes:
       - /Users/galen/data/mongo:/data/db #db dir
     networks:

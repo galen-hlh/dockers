@@ -5,5 +5,6 @@
     "servername": "DIY-DB-SERVER",
     "DATABASE": "DIY-DB-NAME",
     "port": "DIY-DB-PORT"
-  }
+  },
+  "closeRegister": true
 }
