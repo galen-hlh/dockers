@@ -58,7 +58,8 @@ RUN cd /tmp && wget https://pecl.php.net/get/swoole-4.4.12.tgz && \
 RUN touch /usr/local/etc/php/conf.d/swoole.ini && \
     echo 'extension=swoole.so' > /usr/local/etc/php/conf.d/swoole.ini
 
-RUN pecl install /var/www/tmp/rabbitmq-c-0.8.0.tar.gz && docker-php-ext-enable amqp
+# 安装amqp
+RUN apt-get install -y librabbitmq-dev && pecl install amqp-10.0.2 && docker-php-ext-enable amqp
 
 ADD supervisord.conf /etc/supervisord.conf
 
