@@ -14,6 +14,7 @@ RUN set -xe \
     libpng-dev \
     net-tools \
     vim \
+    cron \
     procps \
     net-tools \
     iputils-ping \
@@ -45,9 +46,11 @@ RUN docker-php-source extract \
     && mv composer.phar /usr/local/bin/composer \
     && echo 'alias ll="ls -al"' > /root/.bashrc
 
-
 COPY ./ini/php.ini /usr/local/etc/php/php.ini
 COPY ./ini/www.conf /usr/local/etc/php-fpm.d/www.conf
+RUN mkdir -p /opt/logs/php-fpm
+
+RUN service cron start
 
 WORKDIR /data
 
