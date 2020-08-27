@@ -50,8 +50,7 @@ COPY ./ini/php.ini /usr/local/etc/php/php.ini
 COPY ./ini/www.conf /usr/local/etc/php-fpm.d/www.conf
 RUN mkdir -p /opt/logs/php-fpm
 
-RUN service cron start
+COPY ./entrypoint.sh /
+RUN chmod +x /entrypoint.sh
 
-WORKDIR /data
-
-CMD ["php-fpm","-D"]
+ENTRYPOINT /entrypoint.sh
