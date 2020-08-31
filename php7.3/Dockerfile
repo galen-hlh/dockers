@@ -53,4 +53,8 @@ RUN mkdir -p /opt/logs/php-fpm
 COPY ./entrypoint.sh /
 RUN chmod +x /entrypoint.sh
 
+# 新增nginx
+ADD ./nginx/web.conf /etc/nginx/conf.d/web.conf
+RUN apt-get update & apt-get install -y nginx
+
 ENTRYPOINT /entrypoint.sh
