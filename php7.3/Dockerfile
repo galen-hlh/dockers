@@ -55,6 +55,6 @@ RUN chmod +x /entrypoint.sh
 
 # 新增nginx
 ADD ./nginx/web.conf /etc/nginx/conf.d/web.conf
-RUN apt-get update & apt-get install -y nginx
+RUN apt-get update && apt-get install -y nginx
 
 ENTRYPOINT /entrypoint.sh
