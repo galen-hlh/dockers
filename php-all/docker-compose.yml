@@ -40,8 +40,12 @@ services:
       - ./php72.conf/php.ini:/usr/local/etc/php/conf.d/php.ini
       - ${WORK_SPACE1}:/data/dly
       - ${WORK_SPACE2}:/data/helinhan
+      - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro
+      - ~/.ssh/id_rsa.pub:/root/.ssh/id_rsa.pub:ro
     ports:
       - 9501:9501
+    extra_hosts:
+      - "own.dalongyun.com:192.168.2.11"
     networks:
       uto:
         aliases:
